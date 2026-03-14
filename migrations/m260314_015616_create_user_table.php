@@ -43,6 +43,28 @@ class m260314_015616_create_user_table extends Migration
             'id',
             'CASCADE'
         );
+
+        $this->insert('{{%user}}', [
+            'role_id' => 1,
+            'username' => 'Admin',
+            'password' => md5('KorokNET'),
+            'first_name' => 'Иван',
+            'last_name' => 'Иванов',
+            'middle_name' => 'Иванович',
+            'phone' => '89131111111',
+            'email' => 'admin@admin.com',
+        ]);
+
+        $this->insert('{{%user}}', [
+            'role_id' => 2,
+            'username' => 'user',
+            'password' => md5('user'),
+            'first_name' => 'Петр',
+            'last_name' => 'Петров',
+            'middle_name' => 'Петрович',
+            'phone' => '89132222222',
+            'email' => 'user@user.com',
+        ]);
     }
 
     /**
