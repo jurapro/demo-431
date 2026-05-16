@@ -38,9 +38,12 @@ class Request extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'status_id', 'payment_method_id', 'course_id', 'started_at'], 'required'],
+            [['payment_method_id', 'course_id', 'started_at'], 'required'],
             [['user_id', 'status_id', 'payment_method_id', 'course_id'], 'integer'],
             [['started_at'], 'safe'],
+            ['user_id', 'default', 'value' => Yii::$app->user->id],
+            //['status_id', 'default', 'value' => 1],
+            ['status_id', 'default', 'value' => Status::find()->where(['code' => 'new'])->one()->id],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::class, 'targetAttribute' => ['course_id' => 'id']],
             [['payment_method_id'], 'exist', 'skipOnError' => true, 'targetClass' => PaymentMethod::class, 'targetAttribute' => ['payment_method_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
@@ -57,9 +60,9 @@ class Request extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'status_id' => 'Status ID',
-            'payment_method_id' => 'Payment Method ID',
-            'course_id' => 'Course ID',
-            'started_at' => 'Started At',
+            'payment_method_id' => 'Метод оплаты',
+            'course_id' => 'Курс',
+            'started_at' => 'Желаемая дата начала обучения',
         ];
     }
 

@@ -142,4 +142,14 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $this->password = md5($this->password);
         return parent::beforeSave($insert);
     }
+
+    public function isAdmin()
+    {
+        return $this->role->code === 'admin';
+    }
+
+    public function isUser()
+    {
+        return $this->role->code === 'user';
+    }
 }
