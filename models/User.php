@@ -38,10 +38,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['role_id', 'username', 'password', 'first_name', 'last_name', 'middle_name', 'phone', 'email'], 'required'],
+            [['username', 'password', 'first_name', 'last_name', 'middle_name', 'phone', 'email'], 'required'],
             [['role_id'], 'integer'],
-            [['username', 'password', 'first_name', 'last_name', 'middle_name', 'phone', 'email'], 'string', 'max' => 255],
+            ['role_id', 'default', 'value' => 2],
+            ['email', 'email'],
+            [['password', 'first_name', 'last_name', 'middle_name', 'phone', 'email'], 'string', 'max' => 255],
             [['username'], 'unique'],
+            [['username'], 'string', 'min' => 6],
+            [['password'], 'string', 'min' => 8],
+            ['username', 'match', 'pattern' => '/^[a-z0-9A-Z]\w*$/i'],
+            [['first_name', 'last_name', 'middle_name',], 'match', 'pattern' => '/^[а-яА-ЯёЁ ]*$/u', 'message' => 'Символы кириллицы и пробелы'],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id']],
         ];
     }
@@ -53,13 +59,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'role_id' => 'Role ID',
+            'role_id' => 'Идентификатор роли',
             'username' => 'Логин',
             'password' => 'Пароль',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'middle_name' => 'Middle Name',
-            'phone' => 'Phone',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'middle_name' => 'Отчество',
+            'phone' => 'Телефон',
             'email' => 'Email',
         ];
     }
@@ -129,5 +135,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findByUsername($username)
     {
         return User::findOne(['username' => $username]);
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->password = md5($this->password);
+        return parent::beforeSave($insert);
     }
 }
