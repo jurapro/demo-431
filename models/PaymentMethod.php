@@ -45,7 +45,7 @@ class PaymentMethod extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'code' => 'Code',
-            'name' => 'Name',
+            'name' => 'Метод оплаты',
         ];
     }
 
