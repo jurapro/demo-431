@@ -17,6 +17,7 @@ use yii\helpers\Html;
     <?php
     $requests = Request::find()
         ->where(['status_id' => Status::find()->where(['code' => 'done'])->one()->id])
+        ->where(['user_id' => Yii::$app->user->id])
         ->all();
 
     $items = [];
