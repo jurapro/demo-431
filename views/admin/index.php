@@ -1,7 +1,10 @@
 <?php
 
+use app\models\Request;
+use yii\grid\ActionColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -23,12 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'paymentMethod.name',
             'course.name',
             'started_at',
-//            [
-//                'class' => ActionColumn::className(),
-//                'urlCreator' => function ($action, Request $model, $key, $index, $column) {
-//                    return Url::toRoute([$action, 'id' => $model->id]);
-//                 }
-//            ],
+            [
+                'class' => ActionColumn::className(),
+                'template' => '{update}',
+                'visibleButtons' => [
+                    'update' => function ($model, $key, $index) {
+                        return $model->status->code === 'new' || $model->status->code === 'in_progress';
+                    },
+                ],
+                'urlCreator' => function ($action, Request $model, $key, $index, $column) {
+                    return Url::toRoute(['/request/update', 'id' => $model->id]);
+                 }
+            ],
         ],
     ]); ?>
 

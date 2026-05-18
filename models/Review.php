@@ -45,8 +45,8 @@ class Review extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'request_id' => 'Request ID',
-            'text' => 'Text',
+            'request_id' => 'Заявка',
+            'text' => 'Текст отзыва',
         ];
     }
 
