@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -13,24 +13,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php
 
-    <?= GridView::widget([
+    echo ListView::widget([
         'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'user.email',
-            'status.name',
-            'paymentMethod.name',
-            'course.name',
-            'started_at',
-//            [
-//                'class' => ActionColumn::className(),
-//                'urlCreator' => function ($action, Request $model, $key, $index, $column) {
-//                    return Url::toRoute([$action, 'id' => $model->id]);
-//                 }
-//            ],
-        ],
-    ]); ?>
+        'itemView' => '_item',
+        'pager' => [
+           'class' => \yii\bootstrap5\LinkPager::class,
+        ]
+    ]);
 
-
+    ?>
 </div>

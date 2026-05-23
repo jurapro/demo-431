@@ -59,7 +59,7 @@ class Request extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'status_id' => 'Status ID',
+            'status_id' => 'Статус заявки',
             'payment_method_id' => 'Метод оплаты',
             'course_id' => 'Курс',
             'started_at' => 'Желаемая дата начала обучения',
