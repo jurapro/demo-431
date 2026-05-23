@@ -40,8 +40,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Регистрация', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
-            ['label' => 'Страница заявок', 'url' => ['/request/index'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => 'Административная панель', 'url' => ['/admin'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()],
+            ['label' => 'Заявки', 'url' => ['/request'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Панель администратора', 'url' => ['/admin'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()],
             Yii::$app->user->isGuest
                 ? ['label' => 'Вход', 'url' => ['/site/login']]
                 : '<li class="nav-item">'

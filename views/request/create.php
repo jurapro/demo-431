@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Request $model */
 
-$this->title = 'Подача заявки';
+$this->title = 'Формирование заявки';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="request-create">

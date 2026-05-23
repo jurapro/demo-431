@@ -35,24 +35,10 @@ class AdminController extends \yii\web\Controller
         );
     }
 
-    /**
-     * Lists all Request models.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Request::find(),
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-
         ]);
 
         return $this->render('index', [

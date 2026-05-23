@@ -31,7 +31,7 @@ use yii\helpers\Html;
 
     <?= $form->field($model, 'started_at')->input('date') ?>
 
-    <?= $form->field($model, 'payment_method_id')->dropdownList($paymentMethods, ['prompt'=>'Выберите предпочтительный способ оплаты']); ?>
+    <?= $form->field($model, 'payment_method_id')->dropdownList($paymentMethods, ['prompt'=>'Выберите способ оплаты']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>

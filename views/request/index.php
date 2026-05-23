@@ -1,9 +1,6 @@
 <?php
 
-use app\models\Request;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
@@ -25,19 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-/*
-            'id',
-            'user_id',*/
             'status.name',
             'paymentMethod.name',
             'course.name',
             'started_at',
-/*            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Request $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],*/
         ],
     ]); ?>
 
