@@ -61,16 +61,15 @@ class RequestController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Request::find()->where(['user_id' => Yii::$app->user->id]),
-            /*
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => 5
             ],
             'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC,
                 ]
             ],
-            */
+
         ]);
 
         return $this->render('index', [
@@ -102,6 +101,7 @@ class RequestController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', 'Ваша заявка будет рассмотрена администратором!');
                 return $this->redirect(['index']);
             }
         } else {
@@ -125,6 +125,7 @@ class RequestController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Заявка успешно обновлена!');
             return $this->redirect(['/admin/index']);
         }
 
