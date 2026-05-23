@@ -1,7 +1,9 @@
 <?php
 
+use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ListView;
+
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -18,17 +20,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Оставить отзыв', ['/review/create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-
-    <?= GridView::widget([
+    <?php
+    echo ListView::widget([
         'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'status.name',
-            'paymentMethod.name',
-            'course.name',
-            'started_at',
-        ],
-    ]); ?>
-
+        'itemView' => '_item',
+        'pager' => [
+            'class' => LinkPager::class,
+        ]
+    ]);
+    ?>
 
 </div>
