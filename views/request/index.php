@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Подать заявку', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Оставить отзыв', ['/review/create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Подать заявку', ['create'], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Оставить отзыв', ['/review/create'], ['class' => 'btn btn-danger']) ?>
     </p>
 
     <?php

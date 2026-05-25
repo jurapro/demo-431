@@ -6,9 +6,9 @@ use yii\helpers\Html;
 ?>
 <?php
  $classCard = match ($model->status->code) {
-     'new' => 'border-danger',
+     'new' => 'border-danger bg-danger-card',
      'in_progress' => 'border-primary',
-     'done' => 'border-success',
+     'done' => 'border-success bg-success-card',
  }
 ?>
 <div class="card mb-2 <?= $classCard ?>">
@@ -21,7 +21,7 @@ use yii\helpers\Html;
         <?php
         if ($model->status->code === 'new' || $model->status->code === 'in_progress')
         {
-            echo Html::a('Изменить статус', ['/request/update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            echo Html::a('Изменить статус', ['/request/update', 'id' => $model->id], ['class' => 'btn btn-danger']);
         }
         ?>
     </div>

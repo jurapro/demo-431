@@ -42,7 +42,7 @@ use yii\helpers\Html;
     <?= $form->field($model, 'status_id')->dropdownList($statuses) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Отправить', ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
