@@ -32,7 +32,7 @@ use yii\helpers\Html;
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -2,18 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\Request;
+use app\models\Review;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RequestController implements the CRUD actions for Request model.
+ * ReviewController implements the CRUD actions for Review model.
  */
-class RequestController extends Controller
+class ReviewController extends Controller
 {
     /**
      * @inheritDoc
@@ -23,25 +22,6 @@ class RequestController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                    'class' => AccessControl::class,
-                    'only' => ['*'],
-                    'rules' => [
-                        [
-                            'actions' => ['index', 'create'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                        ],
-                        [
-                            'actions' => ['update'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                                return Yii::$app->user->identity->isAdmin();
-                            }
-                        ],
-                    ],
-                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -53,22 +33,24 @@ class RequestController extends Controller
     }
 
     /**
-     * Lists all Request models.
+     * Lists all Review models.
      *
      * @return string
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Request::find()->where(['user_id' => Yii::$app->user->id]),
+            'query' => Review::find(),
+            /*
             'pagination' => [
-                'pageSize' => 5
+                'pageSize' => 50
             ],
             'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC,
                 ]
             ],
+            */
         ]);
 
         return $this->render('index', [
@@ -77,7 +59,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Displays a single Request model.
+     * Displays a single Review model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -90,18 +72,19 @@ class RequestController extends Controller
     }
 
     /**
-     * Creates a new Request model.
+     * Creates a new Review model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Request();
+        $model = new Review();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success', 'Заявка отправлена администратору!');
-                return $this->redirect(['index']);
+                Yii::$app->session->setFlash('success', 'Спасибо за отзыв!');
+
+                return $this->redirect(['/request/index']);
             }
         } else {
             $model->loadDefaultValues();
@@ -113,7 +96,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Updates an existing Request model.
+     * Updates an existing Review model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -124,8 +107,7 @@ class RequestController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Статус заявки успешно изменен!');
-            return $this->redirect(['/admin/index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -134,7 +116,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Deletes an existing Request model.
+     * Deletes an existing Review model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -148,15 +130,15 @@ class RequestController extends Controller
     }
 
     /**
-     * Finds the Request model based on its primary key value.
+     * Finds the Review model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Request the loaded model
+     * @return Review the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Request::findOne(['id' => $id])) !== null) {
+        if (($model = Review::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
